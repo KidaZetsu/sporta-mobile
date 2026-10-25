@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
                 editor.putString("username", user)
                 editor.apply()
 
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, BaseActivity::class.java))
                 finish()
             } else {
                 AlertDialog.Builder(this)
@@ -62,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
             editor.putString("username", "Tamu")
             editor.apply()
 
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, BaseActivity::class.java))
             finish()
         }
     }
