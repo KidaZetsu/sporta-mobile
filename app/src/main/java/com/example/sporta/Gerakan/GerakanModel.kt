@@ -5,5 +5,6 @@ data class GerakanModel(
     val otot: String,
     val setRep: String,
     val level: String,
-    val gambar: Int
+    val gambar: Int,
+    val deskripsi: String
 )
