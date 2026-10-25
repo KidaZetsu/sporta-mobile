@@ -2,5 +2,4 @@
     <string name="app_name">Sporta</string>
     <string name="app_tagline">Disiplin. Konsisten. Di mana saja.</string>
     <string name="app_version">Versi 1.0</string>
-    <string name="greeting_format">Halo, %1$s</string>
 </resources>

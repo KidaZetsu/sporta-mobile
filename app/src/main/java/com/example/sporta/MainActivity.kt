@@ -2,22 +2,17 @@ package com.example.sporta
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.sporta.databinding.ActivityMainBinding
-import com.example.sporta.utils.SessionManager
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var session: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,65 +21,46 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        WindowCompat.getInsetsController(window, binding.root).isAppearanceLightStatusBars = false
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            binding.appBar.setPadding(0, systemBars.top, 0, 0)
-            v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom)
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        session = SessionManager(this)
-
-        setupToolbar()
-        showGreeting()
-    }
-
-    private fun setupToolbar() {
+        // Toolbar
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
             title = "Sporta"
             subtitle = "Latihan tanpa alat, di mana saja"
         }
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
+        // Sapaan dari SharedPreferences
+        val sharedPref = getSharedPreferences("user_pref", MODE_PRIVATE)
+        val username = sharedPref.getString("username", "Pengguna")
+        binding.tvWelcome.text = "Halo, $username"
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_logout -> {
-                showLogoutDialog()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+        // Info tamu hanya muncul kalau login sebagai Tamu
+        if (username == "Tamu") {
+            binding.tvGuestNote.visibility = View.VISIBLE
         }
-    }
 
-    private fun showGreeting() {
-        val username = session.getUsername()
-        binding.tvGreeting.text = getString(R.string.greeting_format, username)
+        // Logout dengan konfirmasi
+        binding.btnLogout.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("Logout")
+                .setMessage("Apakah Anda yakin ingin keluar?")
+                .setPositiveButton("Ya") { dialog, _ ->
+                    val editor = sharedPref.edit()
+                    editor.clear()
+                    editor.apply()
+                    dialog.dismiss()
 
-        binding.cardGuestInfo.visibility =
-            if (session.isGuest()) View.VISIBLE else View.GONE
-    }
-
-    private fun showLogoutDialog() {
-        MaterialAlertDialogBuilder(this)
-            .setTitle("Logout")
-            .setMessage("Apakah Anda yakin ingin keluar?")
-            .setPositiveButton("Ya") { dialog, _ ->
-                session.logout() // hapus semua data sesi
-                dialog.dismiss()
-
-                val intent = Intent(this, LoginActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-            }
-            .setNegativeButton("Batal") { dialog, _ -> dialog.dismiss() }
-            .show()
+                    val intent = Intent(this, LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                }
+                .setNegativeButton("Batal") { dialog, _ -> dialog.dismiss() }
+                .show()
+        }
     }
 }

@@ -8,7 +8,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.sporta.databinding.ActivitySplashScreenBinding
-import com.example.sporta.utils.SessionManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -23,18 +22,21 @@ class SplashScreenActivity : AppCompatActivity() {
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val session = SessionManager(this)
+        val sharedPref = getSharedPreferences("user_pref", MODE_PRIVATE)
 
         lifecycleScope.launch {
             delay(2000) // simulasi pengambilan data selama 2 detik
 
-            val target = if (session.isLoggedIn()) {
+            // Kondisi jika isLogin bernilai true
+            val isLogin = sharedPref.getBoolean("isLogin", false)
+
+            val target = if (isLogin) {
                 MainActivity::class.java
             } else {
                 LoginActivity::class.java
@@ -42,9 +44,6 @@ class SplashScreenActivity : AppCompatActivity() {
 
             startActivity(Intent(this@SplashScreenActivity, target))
             finish()
-
-
-
         }
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,201 +7,137 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/sporta_background"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/appBar"
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:subtitleTextColor="@android:color/white"
+        app:titleTextColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/sporta_red"
-        android:orientation="vertical">
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/montserrat_extrabold"
+        android:text="Halo, Pengguna"
+        android:textColor="@color/sporta_charcoal"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent"
-            app:subtitleTextAppearance="@style/TextAppearance.Sporta.ToolbarSubtitle"
-            app:titleTextAppearance="@style/TextAppearance.Sporta.ToolbarTitle" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/tvSubWelcome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/inter_regular"
+        android:text="Siap latihan hari ini?"
+        android:textColor="@color/sporta_text_secondary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+    <!-- Info khusus Tamu (disembunyikan dulu) -->
+    <TextView
+        android:id="@+id/tvGuestNote"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/sporta_orange_soft"
+        android:fontFamily="@font/inter_medium"
+        android:padding="12dp"
+        android:text="Kamu masuk sebagai Tamu. Progres latihan tidak akan tersimpan."
+        android:textColor="@color/sporta_charcoal"
+        android:textSize="13sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubWelcome" />
+
+    <!-- Kartu streak (data contoh) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardStreak"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:cardBackgroundColor="@color/sporta_charcoal"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGuestNote">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:padding="20dp">
 
             <TextView
-                android:id="@+id/tvGreeting"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Halo, Pengguna"
-                android:textAppearance="@style/TextAppearance.Sporta.Heading1" />
+                android:fontFamily="@font/montserrat_extrabold"
+                android:text="7"
+                android:textColor="@color/sporta_orange"
+                android:textSize="48sp" />
 
-            <TextView
-                android:id="@+id/tvGreetingSub"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Siap latihan hari ini?"
-                android:textAppearance="@style/TextAppearance.Sporta.Body" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardGuestInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:visibility="gone"
-                app:cardBackgroundColor="@color/sporta_orange_soft"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="0dp">
+                android:layout_marginStart="16dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_medium"
-                    android:padding="14dp"
-                    android:text="Kamu masuk sebagai Tamu. Progres latihan tidak akan tersimpan."
-                    android:textColor="@color/sporta_charcoal"
-                    android:textSize="13sp" />
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardStreak"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:cardBackgroundColor="@color/sporta_charcoal"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="0dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:id="@+id/tvStreakCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_extrabold"
-                        android:text="7"
-                        android:textColor="@color/sporta_orange"
-                        android:textSize="48sp" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/inter_semibold"
-                            android:text="Hari beruntun"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:alpha="0.7"
-                            android:fontFamily="@font/inter_regular"
-                            android:text="Pertahankan, Spartan!"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Kategori Otot"
-                android:textAppearance="@style/TextAppearance.Sporta.Heading2" />
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:clipToPadding="false"
-                android:scrollbars="none">
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chipGroupOtot"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipSpacingHorizontal="8dp"
-                    app:selectionRequired="true"
-                    app:singleLine="true"
-                    app:singleSelection="true">
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="Hari Beruntun"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipSemua"
-                        style="@style/Widget.Sporta.Chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="Semua" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipDada"
-                        style="@style/Widget.Sporta.Chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Dada" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipPunggung"
-                        style="@style/Widget.Sporta.Chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Punggung" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipPerut"
-                        style="@style/Widget.Sporta.Chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Perut" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipKaki"
-                        style="@style/Widget.Sporta.Chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Kaki" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipLengan"
-                        style="@style/Widget.Sporta.Chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Lengan" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipBahu"
-                        style="@style/Widget.Sporta.Chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Bahu" />
-                </com.google.android.material.chip.ChipGroup>
-            </HorizontalScrollView>
-
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="Pertahankan, Spartan!"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-</LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/sporta_red"
+        android:fontFamily="@font/inter_semibold"
+        android:text="Logout"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardStreak" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
