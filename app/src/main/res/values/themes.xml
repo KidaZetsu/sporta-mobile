@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Base.Theme.Sporta" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/sporta_red</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/sporta_orange</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:colorBackground">@color/sporta_background</item>
+        <item name="colorSurface">@color/sporta_surface</item>
+        <item name="colorOnSurface">@color/sporta_charcoal</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+    </style>
+
+    <style name="Theme.Sporta" parent="Base.Theme.Sporta" />
+</resources>
