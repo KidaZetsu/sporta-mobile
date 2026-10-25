@@ -30,8 +30,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
         val sharedPref = getSharedPreferences("user_pref", MODE_PRIVATE)
 
-        lifecycleScope.launch {
-            delay(2000) // simulasi pengambilan data selama 2 detik
+            lifecycleScope.launch {
+                delay(2000) // simulasi pengambilan data selama 2 detik
 
             // Kondisi jika isLogin bernilai true
             val isLogin = sharedPref.getBoolean("isLogin", false)
