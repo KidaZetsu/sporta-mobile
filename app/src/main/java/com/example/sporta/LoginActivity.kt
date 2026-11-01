@@ -33,10 +33,14 @@ class LoginActivity : AppCompatActivity() {
             val user = binding.edtUsername.text.toString().trim()
             val pass = binding.edtPassword.text.toString()
 
+            // Hapus pesan error lama
+            binding.tilUsername.error = null
+            binding.tilPassword.error = null
+
             if (user.isEmpty()) {
-                binding.edtUsername.error = "Username tidak boleh kosong"
+                binding.tilUsername.error = "Username tidak boleh kosong"
             } else if (pass.isEmpty()) {
-                binding.edtPassword.error = "Password tidak boleh kosong"
+                binding.tilPassword.error = "Password tidak boleh kosong"
             } else if (user == pass) {
                 // Login berhasil: simpan isLogin dan username
                 val editor = sharedPref.edit()

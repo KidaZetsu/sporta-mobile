@@ -68,34 +68,58 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <EditText
-                android:id="@+id/edtUsername"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilUsername"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_regular"
-                android:hint="Masukkan Username"
-                android:inputType="text"
-                android:maxLines="1" />
+                android:hint="Username"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:startIconDrawable="@drawable/ic_edit">
 
-            <EditText
-                android:id="@+id/edtPassword"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_regular"
+                    android:inputType="text"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPassword"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/inter_regular"
-                android:hint="Masukkan Password"
-                android:inputType="textPassword"
-                android:maxLines="1" />
+                android:layout_marginTop="8dp"
+                android:hint="Password"
+                app:endIconMode="password_toggle"
+                app:errorEnabled="true"
+                app:helperText="Isi sama dengan username untuk masuk">
 
-            <Button
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_regular"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:backgroundTint="@color/sporta_red"
                 android:fontFamily="@font/inter_semibold"
                 android:text="Masuk"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_login"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -112,7 +136,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardForm" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnGuest"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -123,8 +147,11 @@
         android:fontFamily="@font/inter_semibold"
         android:text="Masuk sebagai Tamu"
         android:textColor="@color/sporta_red"
+        app:cornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvOr" />
+        app:layout_constraintTop_toBottomOf="@+id/tvOr"
+        app:strokeColor="@color/sporta_red"
+        app:strokeWidth="1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
