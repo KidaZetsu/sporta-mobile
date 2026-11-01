@@ -134,6 +134,73 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/gridMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        app:columnCount="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardStreak"
+        app:useDefaultMargins="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDada"
+            android:backgroundTint="@color/sporta_charcoal"
+            android:text="Dada"
+            android:textSize="12sp"
+            app:cornerRadius="12dp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill_horizontal" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPerut"
+            android:backgroundTint="@color/sporta_charcoal"
+            android:text="Perut"
+            android:textSize="12sp"
+            app:cornerRadius="12dp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill_horizontal" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnKaki"
+            android:backgroundTint="@color/sporta_charcoal"
+            android:text="Kaki"
+            android:textSize="12sp"
+            app:cornerRadius="12dp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill_horizontal" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLengan"
+            android:backgroundTint="@color/sporta_charcoal"
+            android:text="Lengan"
+            android:textSize="12sp"
+            app:cornerRadius="12dp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill_horizontal" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFullBody"
+            android:backgroundTint="@color/sporta_charcoal"
+            android:text="Full Body"
+            android:textSize="12sp"
+            app:cornerRadius="12dp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill_horizontal" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPeregangan"
+            android:backgroundTint="@color/sporta_charcoal"
+            android:text="Stretching"
+            android:textSize="12sp"
+            app:cornerRadius="12dp"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill_horizontal" />
+    </androidx.gridlayout.widget.GridLayout>
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="0dp"
@@ -147,6 +214,6 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardStreak" />
+        app:layout_constraintTop_toBottomOf="@+id/gridMenu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

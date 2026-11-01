@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -62,6 +63,16 @@ class HomeFragment : Fragment() {
                 }
                 .setNegativeButton("Batal") { dialog, _ -> dialog.dismiss() }
                 .show()
+        }
+        // Menu kategori (GridLayout)
+        val tombolKategori = listOf(
+            binding.btnDada, binding.btnPerut, binding.btnKaki,
+            binding.btnLengan, binding.btnFullBody, binding.btnPeregangan
+        )
+        tombolKategori.forEach { tombol ->
+            tombol.setOnClickListener {
+                Toast.makeText(requireContext(), "Kategori: ${tombol.text}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

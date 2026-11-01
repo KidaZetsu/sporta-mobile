@@ -2,6 +2,8 @@ package com.example.sporta.Gerakan
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
+import com.google.android.material.chip.Chip
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +37,8 @@ class GerakanFragment : Fragment() {
             "Squat satu kaki dengan kaki lainnya lurus ke depan. Butuh kekuatan kaki, keseimbangan, dan fleksibilitas yang baik."
         )
     )
+    // Daftar yang sedang ditampilkan (berubah sesuai chip)
+    private val daftarTampil = mutableListOf<GerakanModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,14 +55,37 @@ class GerakanFragment : Fragment() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Gerakan"
 
-        // Custom adapter
-        val adapter = GerakanAdapter(requireContext(), daftarGerakan)
+        // Awalnya tampilkan semua gerakan
+        daftarTampil.clear()
+        daftarTampil.addAll(daftarGerakan)
+
+        // Custom adapter memakai daftarTampil
+        val adapter = GerakanAdapter(requireContext(), daftarTampil)
         binding.listViewGerakan.adapter = adapter
 
-        // Klik item -> Snackbar (nanti diganti pindah ke halaman detail di Bagian E)
+        // Filter dengan Chip
+        binding.chipGroupFilter.setOnCheckedStateChangeListener { group, checkedIds ->
+            val selectedChipId = checkedIds.firstOrNull()
+            val level = if (selectedChipId != null) {
+                group.findViewById<Chip>(selectedChipId).text.toString()
+            } else {
+                "Semua"
+            }
+
+            daftarTampil.clear()
+            if (level == "Semua") {
+                daftarTampil.addAll(daftarGerakan)
+            } else {
+                daftarTampil.addAll(daftarGerakan.filter { it.level == level })
+            }
+            adapter.notifyDataSetChanged()
+
+            Toast.makeText(requireContext(), "Filter: $level", Toast.LENGTH_SHORT).show()
+        }
+
         // Klik item -> pindah ke DetailActivity membawa data
         binding.listViewGerakan.setOnItemClickListener { _, _, position, _ ->
-            val gerakan = daftarGerakan[position]
+            val gerakan = daftarTampil[position]
             val intent = Intent(requireContext(), DetailActivity::class.java)
             intent.putExtra("nama", gerakan.nama)
             intent.putExtra("otot", gerakan.otot)
