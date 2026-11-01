@@ -10,6 +10,13 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
+import com.example.sporta.Home.tutorial.TutorialHomeActivity
+import com.example.sporta.R
 import com.example.sporta.LoginActivity
 import com.example.sporta.databinding.FragmentHomeBinding
 
@@ -35,6 +42,24 @@ class HomeFragment : Fragment() {
             title = "Sporta"
             subtitle = "Beranda"
         }
+
+        // Option menu di Toolbar: tombol Info membuka tutorial
+        requireActivity().addMenuProvider(object : MenuProvider {
+
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.home_toolbar_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_tutorial -> {
+                        startActivity(Intent(requireContext(), TutorialHomeActivity::class.java))
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         // Sapaan dari SharedPreferences
         val sharedPref = requireContext().getSharedPreferences("user_pref", Context.MODE_PRIVATE)

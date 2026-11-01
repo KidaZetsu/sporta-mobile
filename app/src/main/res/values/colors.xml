@@ -22,4 +22,10 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="sporta_orange_soft">#FDEBD3</color>
+
+    <color name="tutorial_red">#D62828</color>
+    <color name="tutorial_orange">#F77F00</color>
+    <color name="tutorial_charcoal">#1C1C21</color>
+    <color name="dot_normal">#99FFFFFF</color>
+    <color name="dot_selected">#FFFFFF</color>
 </resources>
