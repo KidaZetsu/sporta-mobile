@@ -201,6 +201,21 @@
             app:layout_columnWeight="1"
             app:layout_gravity="fill_horizontal" />
     </androidx.gridlayout.widget.GridLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLatihan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/sporta_orange"
+        android:fontFamily="@font/inter_semibold"
+        android:text="Pusat Latihan"
+        android:textColor="@color/white"
+        app:cornerRadius="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridMenu" />
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="0dp"
@@ -214,6 +229,6 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridMenu" />
+        app:layout_constraintTop_toBottomOf="@+id/btnLatihan" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

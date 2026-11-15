@@ -1,4 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <style name="Base.Theme.Sporta" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/sporta_red</item>
     </style>

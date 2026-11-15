@@ -3,6 +3,7 @@ package com.example.sporta.Home
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.example.sporta.Latihan.LatihanActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -98,6 +99,10 @@ class HomeFragment : Fragment() {
             tombol.setOnClickListener {
                 Toast.makeText(requireContext(), "Kategori: ${tombol.text}", Toast.LENGTH_SHORT).show()
             }
+        }
+        // Tombol Pusat Latihan -> halaman bertab
+        binding.btnLatihan.setOnClickListener {
+            startActivity(Intent(requireContext(), LatihanActivity::class.java))
         }
     }
 

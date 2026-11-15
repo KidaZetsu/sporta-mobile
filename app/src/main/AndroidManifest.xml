@@ -43,6 +43,11 @@
             android:name=".Home.tutorial.TutorialHomeActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Latihan.LatihanActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Sporta"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
