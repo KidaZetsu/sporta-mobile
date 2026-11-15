@@ -48,18 +48,18 @@ class LatihanActivity : AppCompatActivity() {
     }
 
     private fun pasangBadge() {
-        // Tab Tips: badge angka = jumlah tips
-        binding.tabLayout.getTabAt(2)?.getOrCreateBadge()?.apply {
-            isVisible = true
-            number = 5
+        // Setiap tab diberi badge angka sesuai jumlah isinya
+        val jumlah = listOf(
+            GerakanData.semua.size,
+            ProgramData.semua.size,
+            daftarTips.size
+        )
+        jumlah.forEachIndexed { index, angka ->
+            binding.tabLayout.getTabAt(index)?.getOrCreateBadge()?.apply {
+                isVisible = true
+                number = angka
+            }
         }
-        // Tab Gerakan dan Program: badge titik (diganti angka di H2 dan H3)
-        // Tab Gerakan: badge angka = jumlah gerakan
-        binding.tabLayout.getTabAt(0)?.getOrCreateBadge()?.apply {
-            isVisible = true
-            number = GerakanData.semua.size
-        }
-        binding.tabLayout.getTabAt(1)?.getOrCreateBadge()?.isVisible = true
     }
 
     // Tombol back di Toolbar
