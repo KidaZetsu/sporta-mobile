@@ -16,8 +16,18 @@ import kotlinx.coroutines.launch
 
 class RiwayatFormActivity : AppCompatActivity() {
 
+    companion object {
+        // Kunci Intent untuk id catatan yang akan diubah
+        const val EXTRA_ID = "extra_id"
+    }
+
     private lateinit var binding: ActivityRiwayatFormBinding
     private lateinit var db: AppDatabase
+
+    // -1 berarti mode tambah, selain itu mode ubah
+    private var idUbah = -1
+    // Catatan lama yang dimuat dari database (hanya terisi di mode ubah)
+    private var riwayatLama: RiwayatEntity? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,10 +56,34 @@ class RiwayatFormActivity : AppCompatActivity() {
             ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, namaGerakan)
         )
 
+        // Kalau ada id di Intent, berarti mode ubah
+        idUbah = intent.getIntExtra(EXTRA_ID, -1)
+        if (idUbah != -1) siapkanModeUbah(idUbah)
+
         binding.btnSimpan.setOnClickListener { simpan() }
     }
 
+    // Mode ubah: ganti teks, lalu isi kolom dengan data lama dari database
+    private fun siapkanModeUbah(id: Int) {
+        supportActionBar?.title = "Ubah Catatan"
+        binding.tvJudulForm.text = "Ubah sesi latihanmu"
+        binding.btnSimpan.text = "Simpan Perubahan"
+
+        lifecycleScope.launch {
+            val data = db.riwayatDao().cariById(id) ?: return@launch
+            riwayatLama = data
+            // false = jangan memfilter dropdown, supaya semua pilihan tetap muncul
+            binding.actGerakan.setText(data.namaGerakan, false)
+            binding.etSet.setText(data.jumlahSet.toString())
+            binding.etRep.setText(data.jumlahRep.toString())
+            binding.etCatatan.setText(data.catatan)
+        }
+    }
+
     private fun simpan() {
+        // Mode ubah tapi data lama belum selesai dimuat: tunggu dulu
+        if (idUbah != -1 && riwayatLama == null) return
+
         val gerakan = binding.actGerakan.text.toString().trim()
         val jumlahSet = binding.etSet.text.toString().toIntOrNull()
         val jumlahRep = binding.etRep.text.toString().toIntOrNull()
@@ -64,19 +98,33 @@ class RiwayatFormActivity : AppCompatActivity() {
             jumlahRep == null || jumlahRep < 1
         ) return
 
-        // Simpan lewat coroutine, karena insert() adalah fungsi suspend
         binding.btnSimpan.isEnabled = false
         lifecycleScope.launch {
             try {
-                db.riwayatDao().insert(
-                    RiwayatEntity(
-                        namaGerakan = gerakan,
-                        jumlahSet = jumlahSet,
-                        jumlahRep = jumlahRep,
-                        catatan = catatan
+                val lama = riwayatLama
+                if (lama == null) {
+                    // Mode tambah: baris baru
+                    db.riwayatDao().insert(
+                        RiwayatEntity(
+                            namaGerakan = gerakan,
+                            jumlahSet = jumlahSet,
+                            jumlahRep = jumlahRep,
+                            catatan = catatan
+                        )
                     )
-                )
-                Toast.makeText(this@RiwayatFormActivity, "Catatan tersimpan", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@RiwayatFormActivity, "Catatan tersimpan", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Mode ubah: salin data lama (id dan tanggal tetap), ganti isinya
+                    db.riwayatDao().update(
+                        lama.copy(
+                            namaGerakan = gerakan,
+                            jumlahSet = jumlahSet,
+                            jumlahRep = jumlahRep,
+                            catatan = catatan
+                        )
+                    )
+                    Toast.makeText(this@RiwayatFormActivity, "Catatan diperbarui", Toast.LENGTH_SHORT).show()
+                }
                 finish()
             } catch (e: Exception) {
                 binding.btnSimpan.isEnabled = true

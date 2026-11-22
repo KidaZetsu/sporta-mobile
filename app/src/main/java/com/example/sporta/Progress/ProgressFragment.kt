@@ -35,7 +35,10 @@ class ProgressFragment : Fragment(R.layout.fragment_progress) {
         db = AppDatabase.getInstance(requireContext())
 
         // Adapter: aksi hapus dikirim ke fungsi konfirmasiHapus
-        riwayatAdapter = RiwayatAdapter(onHapusClick = { konfirmasiHapus(it) })
+        riwayatAdapter = RiwayatAdapter(
+            onHapusClick = { konfirmasiHapus(it) },
+            onItemClick = { bukaForm(it) }
+        )
 
         binding.rvRiwayat.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -43,11 +46,18 @@ class ProgressFragment : Fragment(R.layout.fragment_progress) {
         }
 
         // Tombol + membuka form
-        binding.fabTambah.setOnClickListener {
-            startActivity(Intent(requireContext(), RiwayatFormActivity::class.java))
-        }
+        binding.fabTambah.setOnClickListener { bukaForm() }
 
         amatiDatabase()
+    }
+
+    // Membuka form. Tanpa parameter = mode tambah, dengan catatan = mode ubah
+    private fun bukaForm(riwayat: RiwayatEntity? = null) {
+        val intent = Intent(requireContext(), RiwayatFormActivity::class.java)
+        if (riwayat != null) {
+            intent.putExtra(RiwayatFormActivity.EXTRA_ID, riwayat.id)
+        }
+        startActivity(intent)
     }
 
     // Mendengarkan Flow dari DAO: setiap tabel berubah, daftar ikut berubah
