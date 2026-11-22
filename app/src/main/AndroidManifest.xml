@@ -48,6 +48,10 @@
             android:exported="false"
             android:theme="@style/Theme.Sporta"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Progress.RiwayatFormActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
